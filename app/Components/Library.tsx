@@ -1,11 +1,15 @@
+import useUploadModal from "@/hooks/useUploadModal";
+import { useUser } from "@/hooks/useUser";
 import { BsMusicNoteList, BsPlusLg } from "react-icons/bs";
 import { HiListBullet } from "react-icons/hi2";
 
 type LibraryProps = {};
 
 const Library: React.FC<LibraryProps> = (props: LibraryProps) => {
+  const uploadModal = useUploadModal();
+  const { user } = useUser();
   const handleClickOnPlus = () => {
-    console.log("clicked");
+      return uploadModal.onChangeOpen();
   };
   return (
     <div className="flex flex-col">
