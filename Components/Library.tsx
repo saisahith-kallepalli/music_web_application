@@ -1,15 +1,20 @@
 import useUploadModal from "@/hooks/useUploadModal";
 import { useUser } from "@/hooks/useUser";
+import { Song } from "@/types";
 import { BsMusicNoteList, BsPlusLg } from "react-icons/bs";
 import { HiListBullet } from "react-icons/hi2";
+import MediaItem from "./MediaItem";
 
-type LibraryProps = {};
+type LibraryProps = {
+  songs: Song[];
+};
 
 const Library: React.FC<LibraryProps> = (props: LibraryProps) => {
+  const { songs } = props;
   const uploadModal = useUploadModal();
   const { user } = useUser();
   const handleClickOnPlus = () => {
-      return uploadModal.onChangeOpen();
+    return uploadModal.onChangeOpen();
   };
   return (
     <div className="flex flex-col">
@@ -24,7 +29,11 @@ const Library: React.FC<LibraryProps> = (props: LibraryProps) => {
           onClick={handleClickOnPlus}
         />
       </div>
-      <div className="flex flex-col gap-y-2 px-3">List of Songs</div>
+      <div className="flex flex-col gap-y-2 px-3">
+        {songs.map((song) => (
+          <MediaItem key={song.id} song={song} onClickSong={() => {}} />
+        ))}
+      </div>
     </div>
   );
 };
