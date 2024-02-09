@@ -2,7 +2,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { HiXMark } from "react-icons/hi2";
 
 interface ModelProps {
-  onHandleChange: () => void;
+  onHandleChange: (open: boolean) => void;
   isOpen: boolean;
   description?: string;
   title: string;
@@ -23,12 +23,11 @@ const Modal: React.FC<ModelProps> = (props) => {
             {description}
           </Dialog.Description>
           <div>{children}</div>
-          <Dialog.Close asChild></Dialog.Close>
-          <button
-            onClick={onHandleChange}
-            className="text-neutral-400 hover:text-neutral-200 absolute top-[10px] right-[10px] inline-flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-full focus:outline-none">
-            <HiXMark />
-          </button>
+          <Dialog.Close asChild>
+            <button className="text-neutral-400 hover:text-neutral-200 absolute top-[10px] right-[10px] inline-flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-full focus:outline-none">
+              <HiXMark />
+            </button>
+          </Dialog.Close>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

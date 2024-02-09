@@ -5,6 +5,8 @@ import { BsMusicNoteList, BsPlusLg } from "react-icons/bs";
 import { HiListBullet } from "react-icons/hi2";
 import MediaItem from "./MediaItem";
 import useOnPlay from "@/hooks/useOnPlay";
+import useSubscribeModal from "@/hooks/useSubscribeModal";
+import useAuthModel from "@/hooks/useAuthModel";
 
 type LibraryProps = {
   songs: Song[];
@@ -13,10 +15,17 @@ type LibraryProps = {
 const Library: React.FC<LibraryProps> = (props: LibraryProps) => {
   const { songs } = props;
   const uploadModal = useUploadModal();
-  const { user } = useUser();
-
+  const { user, subscription } = useUser();
+  const subscribeModal = useSubscribeModal();
+  const authModal = useAuthModel();
   const onPlay = useOnPlay(songs);
   const handleClickOnPlus = () => {
+    if (!user) {
+      authModal.onOpen();
+    }
+    if (!subscription) {
+      return subscribeModal.onOpen();
+    }
     return uploadModal.onChangeOpen();
   };
   return (
