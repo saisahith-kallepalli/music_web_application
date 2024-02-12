@@ -1,4 +1,5 @@
 import useLoadImage from "@/hooks/useLoadImage";
+import usePlayer from "@/hooks/usePlayer";
 import { Song } from "@/types";
 import Image from "next/image";
 
@@ -10,10 +11,12 @@ interface MediaItemProps {
 const MediaItem = (props: MediaItemProps) => {
   const { song, onClickSong } = props;
   const imagePath = useLoadImage(song);
+  const player = usePlayer();
   const onHandleClickSong = () => {
     if (onClickSong) {
       return onClickSong(song.id);
     }
+    return player.setId(song.id);
   };
   return (
     <div
